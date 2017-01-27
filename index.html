@@ -25,14 +25,13 @@
 
 	<script>
 
-		var words = ["fun", "exciting", "about not giving up", "being helpful", "being open", "what I learned at CodingDojo!"],
+		var words = ["fun", "exciting", "makes me a magician", "about not giving up", "being helpful", "being open", "what I learned at CodingDojo!"],
 			el = document.getElementById('magic'),
 			word_counter = 0,
 			character_counter = 0;
 
 		function updateText()
 		{
-			el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
 
 			if(character_counter == words[word_counter].length)
 			{
@@ -43,7 +42,21 @@
 				//if we're displaying the last word, go back to the first word
 				if(word_counter == words.length)
 					word_counter = 0;
+
+				return; // bail early so the magic restarts correctly
 			}
+
+			// hack to make the border-right appear correctly with spaces
+			if ( words[word_counter][character_counter] === " " )
+			{
+				el.innerHTML = el.innerHTML+ "&nbsp;"
+				character_counter++;
+			}
+			else 
+			{
+				el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
+			}
+			
 		}
 
 		setInterval(updateText,300);
